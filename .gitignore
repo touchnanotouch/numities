@@ -33,3 +33,5 @@
 
 settings.json
 tasks.json
+
+src/main.cpp

@@ -4,18 +4,13 @@
 
 
 int main() {
-    Vector<double> vec1(10);
-    Vector<double> vec2(10);
+    double arr[3] = {3, -4, 2};
 
-    vec1[0] = 27.0;
-    vec2[5] = 56.0;
+    Vector<double> vec(3, arr);
+    //vec.set_vec("../../../../github/numities/src/test.txt");
 
-    std::cout << vec1;
-    std::cout << vec2;
-
-    vec1.set_vec(vec2.vec(), vec2.row_c());
-
-    std::cout << vec1;
+    std::cout << vec << std::endl;
+    std::cout << vec.normalized() << std::endl;
 
     return 0;
 }
