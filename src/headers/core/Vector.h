@@ -16,7 +16,7 @@ class Vector {
             for (size_t i = 0; i < _rows; i++) {
                 _vec[i] = 0.0;
             }
-        }
+        };
 
         Vector(
             size_t row_c,
@@ -26,29 +26,30 @@ class Vector {
             for (size_t i = 0; i < _rows; i++) {
                 _vec[i] = vec[i];
             }
-        }
+        };
 
         ~Vector(
 
         ) {
             delete[] _vec;
-        }
+        };
 
         friend std::ostream& operator<<(
             std::ostream& out,
             const Vector& vector
-        ) {
+            ) {
             out << "\n";
             for (size_t i = 0; i < vector._rows; i++) {
                 if (i < vector._rows - 1) {
                     out << vector._vec[i] << "\n";
-                } else {
+                }
+                else {
                     out << vector._vec[i];
                 }
             }
 
             return out;
-        }
+        };
 
         size_t row_c(
 
@@ -67,11 +68,12 @@ class Vector {
         );
 
         bool set_vec(
-            T* vec,
-            size_t row_c
+            size_t row_c,
+            T* vec
         );
 
         bool set_vec(
+            size_t row_c,
             std::string file_path,
             const char delimiter = ' '
         );

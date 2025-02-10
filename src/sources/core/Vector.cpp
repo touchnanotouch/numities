@@ -37,14 +37,18 @@ bool Vector<T>::set_row_c(
         return false;
     }
 
-    _rows = row_c;
-
-    T* new_vec = new T[_rows];
-    for (size_t i = 0; i < _rows; i++) {
-        new_vec[i] = _vec[i];
+    T* new_vec = new T[row_c];
+    for (size_t i = 0; i < row_c; i++) {
+        if (i < _rows) {
+            new_vec[i] = _vec[i];
+        } else {
+            new_vec[i] = 0;
+        }
     }
 
     delete[] _vec;
+
+    _rows = row_c;
     _vec = new_vec;
 
     return true;
@@ -52,11 +56,12 @@ bool Vector<T>::set_row_c(
 
 template<typename T>
 bool Vector<T>::set_vec(
-    T* vec,
-    size_t row_c
+    size_t row_c,
+    T* vec
 ) {
     if ((row_c > 0) && (vec != _vec)) {
         delete[] _vec;
+
         _rows = row_c;
 
         _vec = new T[_rows];
@@ -72,21 +77,22 @@ bool Vector<T>::set_vec(
 
 template<typename T>
 bool Vector<T>::set_vec(
+    size_t row_c,
     std::string file_path,
     const char delimiter
 ) {
-    Vector<T> result(_rows);
+    T* new_vec = new T[row_c];
 
     std::ifstream file(file_path);
     std::string line;
 
     size_t i = 0;
-    while (std::getline(file, line) && i < _rows) {
+    while (std::getline(file, line)) {
         std::istringstream stream(line);
 
         T value;
         while (stream >> value) {
-            result[i++] = value;
+            new_vec[i++] = value;
 
             if (stream.peek() == delimiter) {
                 stream.ignore();
@@ -96,11 +102,7 @@ bool Vector<T>::set_vec(
 
     file.close();
 
-    if (result._vec == _vec) {
-        return false;
-    }
-
-    return set_vec(result._vec, result._rows);
+    return set_vec(row_c, new_vec);
 }
 
 template<typename T>
